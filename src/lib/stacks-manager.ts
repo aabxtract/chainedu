@@ -5,8 +5,6 @@ import { AppConfig, UserSession, showConnect } from '@stacks/connect';
 import {
   uintCV,
   stringAsciiCV,
-  trueCV,
-  falseCV,
   PostConditionMode,
   makeContractCall,
   broadcastTransaction,
