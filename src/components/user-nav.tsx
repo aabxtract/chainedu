@@ -1,10 +1,11 @@
+
 "use client";
 
 import {
   CreditCard,
   LogOut,
   User,
-  UserCheck,
+  Wallet,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -19,7 +20,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/contexts/auth-context";
-import { ADMIN_WALLET, STUDENT_WALLET_1, STUDENT_WALLET_2 } from "@/lib/mock-data";
 
 function getInitials(name: string) {
     const parts = name.split(' ');
@@ -31,40 +31,14 @@ function getInitials(name: string) {
 
 
 export function UserNav() {
-  const { user, login, logout } = useAuth();
+  const { user, login, logout, userData } = useAuth();
 
-  if (!user) {
+  if (!user || !userData) {
     return (
-       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="default">Connect Wallet</Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56" align="end" forceMount>
-          <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">Login As</p>
-              <p className="text-xs leading-none text-muted-foreground">
-                (Mock Wallet Selection)
-              </p>
-            </div>
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem onSelect={() => login(ADMIN_WALLET)}>
-              <User className="mr-2 h-4 w-4" />
-              <span>Admin</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => login(STUDENT_WALLET_1)}>
-              <UserCheck className="mr-2 h-4 w-4" />
-              <span>Student (Alice)</span>
-            </DropdownMenuItem>
-             <DropdownMenuItem onSelect={() => login(STUDENT_WALLET_2)}>
-              <UserCheck className="mr-2 h-4 w-4" />
-              <span>Student (Bob)</span>
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <Button onClick={login} variant="default">
+        <Wallet className="mr-2 h-4 w-4" />
+        Connect Wallet
+      </Button>
     );
   }
 
@@ -73,7 +47,7 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={`https://avatar.vercel.sh/${user.walletAddress}.png`} alt={user.name} />
+            <AvatarImage src={userData.profile.avatarUrl || `https://avatar.vercel.sh/${user.walletAddress}.png`} alt={user.name} />
             <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
           </Avatar>
         </Button>
