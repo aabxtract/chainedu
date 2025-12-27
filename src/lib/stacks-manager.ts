@@ -35,7 +35,7 @@ class StacksWalletManager {
 
   constructor() {
     this.userSession = userSession;
-    this.network = network;
+    this.network = new StacksTestnet();
     // NOTE: These are placeholder values. Replace with your actual contract details.
     this.contractAddress = 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM';
     this.contractName = 'edu-chain';
