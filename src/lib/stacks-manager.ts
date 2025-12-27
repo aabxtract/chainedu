@@ -1,4 +1,6 @@
 
+"use client";
+
 import { AppConfig, UserSession, showConnect } from '@stacks/connect';
 import {
   uintCV,
