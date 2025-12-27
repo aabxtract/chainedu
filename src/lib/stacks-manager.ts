@@ -11,7 +11,7 @@ import {
   AnchorMode,
   standardPrincipalCV,
 } from '@stacks/transactions';
-import { StacksTestnet } from '@stacks/network';
+import { StacksNetwork } from '@stacks/network';
 
 // =============================================================================
 // App Configuration
@@ -19,7 +19,8 @@ import { StacksTestnet } from '@stacks/network';
 
 export const appConfig = new AppConfig(['store_write', 'publish_data']);
 export const userSession = new UserSession({ appConfig });
-const network = new StacksTestnet();
+const network = new StacksNetwork({ url: 'https://api.testnet.hiro.so' });
+
 
 // =============================================================================
 // Wallet and Contract Management
@@ -27,13 +28,13 @@ const network = new StacksTestnet();
 
 class StacksWalletManager {
   userSession: UserSession;
-  network: StacksTestnet;
+  network: StacksNetwork;
   contractAddress: string;
   contractName: string;
 
   constructor() {
     this.userSession = userSession;
-    this.network = new StacksTestnet();
+    this.network = network;
     // NOTE: These are placeholder values. Replace with your actual contract details.
     this.contractAddress = 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM';
     this.contractName = 'edu-chain';
@@ -77,9 +78,7 @@ class StacksWalletManager {
     const userData = this.getUserData();
     if (!userData) return null;
 
-    if (this.network.isMainnet()) {
-        return userData.profile.stxAddress.mainnet;
-    }
+    // The logic here assumes testnet. If you switch to mainnet, this will need adjustment.
     return userData.profile.stxAddress.testnet;
   }
 
