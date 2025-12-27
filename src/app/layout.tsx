@@ -3,7 +3,6 @@ import './globals.css';
 import { AuthProvider } from '@/contexts/auth-context';
 import { Toaster } from '@/components/ui/toaster';
 import { Header } from '@/components/header';
-import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: 'EduChain Records',
@@ -26,12 +25,6 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased h-full bg-background">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
           <AuthProvider>
             <div className="flex flex-col h-full">
               <Header />
@@ -39,7 +32,6 @@ export default function RootLayout({
             </div>
             <Toaster />
           </AuthProvider>
-        </ThemeProvider>
       </body>
     </html>
   );
