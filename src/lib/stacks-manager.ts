@@ -11,7 +11,7 @@ import {
   AnchorMode,
   standardPrincipalCV,
 } from '@stacks/transactions';
-import { StacksNetwork } from '@stacks/network';
+import { StacksTestnet } from '@stacks/network';
 
 // =============================================================================
 // App Configuration
@@ -19,7 +19,7 @@ import { StacksNetwork } from '@stacks/network';
 
 export const appConfig = new AppConfig(['store_write', 'publish_data']);
 export const userSession = new UserSession({ appConfig });
-const network = new StacksNetwork({ url: 'https://api.testnet.hiro.so' });
+const network = new StacksTestnet();
 
 
 // =============================================================================
@@ -28,7 +28,7 @@ const network = new StacksNetwork({ url: 'https://api.testnet.hiro.so' });
 
 class StacksWalletManager {
   userSession: UserSession;
-  network: StacksNetwork;
+  network: StacksTestnet;
   contractAddress: string;
   contractName: string;
 
