@@ -90,7 +90,7 @@ class StacksWalletManager {
   // ===========================================================================
 
   // Example of a contract call. Adapt to your contract's functions.
-  async addRecord(course: string, grade: string, year: number, institution: string) {
+  async addRecord(studentAddress: string, course: string, grade: string, year: number, institution: string) {
     try {
       const userData = this.getUserData();
       if (!userData) {
@@ -102,6 +102,7 @@ class StacksWalletManager {
         contractName: this.contractName,
         functionName: 'add-record', // Replace with your actual function name
         functionArgs: [
+          standardPrincipalCV(studentAddress),
           stringAsciiCV(course),
           stringAsciiCV(grade),
           uintCV(year),

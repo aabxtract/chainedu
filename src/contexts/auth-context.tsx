@@ -25,7 +25,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUserData(sessionData);
       const walletAddress = sessionData.profile.stxAddress.testnet;
       const foundUser = users.find(u => u.walletAddress === walletAddress);
-      setUser(foundUser || null);
+      
+      if (foundUser) {
+        setUser(foundUser);
+      } else {
+        // Create a temporary user object if not in mock data
+        setUser({
+          studentId: `STX-${walletAddress.substring(0, 8)}`,
+          name: sessionData.profile.name || 'New Student',
+          walletAddress: walletAddress,
+          role: 'student',
+          records: [],
+        });
+      }
     } else {
       setUserData(null);
       setUser(null);
@@ -52,7 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUserData(null);
   };
 
-  const value = useMemo(() => ({ user, userData, login, logout }), [user, userData]);
+  const value = useMemo(() => ({ user, userData, login, logout }), [user, userData, login, logout]);
 
   return (
     <AuthContext.Provider value={value}>
