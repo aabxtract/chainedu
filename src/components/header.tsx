@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { UserNav } from "@/components/user-nav";
 import { Logo } from "@/components/icons";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
   return (
@@ -17,6 +18,7 @@ export function Header() {
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
+           <ThemeToggle />
            <UserNav />
         </div>
       </div>
